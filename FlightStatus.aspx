@@ -173,8 +173,8 @@
                                     flightDetails_HTML = flightDetails_HTML + tblRowClose;
 
                                     flightDetails_HTML = flightDetails_HTML + tblRowOpen;
-                                    flightDetails_HTML = flightDetails_HTML + tblCellOpen + departure_time_info + "<strong style='font-size:35px'>" + departuretime + "</strong>" + tblCellClose;
-                                    flightDetails_HTML = flightDetails_HTML + tblCellOpen + arrival_time_info + "<strong style='font-size:35px'>" + arrivaltime + "</strong>" + tblCellClose;
+                                    flightDetails_HTML = flightDetails_HTML + tblCellOpen + departure_time_info + "<strong style='font-size:30px'>" + departuretime + "</strong>" + tblCellClose;
+                                    flightDetails_HTML = flightDetails_HTML + tblCellOpen + arrival_time_info + "<strong style='font-size:30px'>" + arrivaltime + "</strong>" + tblCellClose;
                                     flightDetails_HTML = flightDetails_HTML + tblCellOpen + flightstatus_Color + tblCellClose;
                                     flightDetails_HTML = flightDetails_HTML + tblRowClose;
 
