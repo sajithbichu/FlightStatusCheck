@@ -23,14 +23,14 @@ namespace FlightStatusCheck
             DateTime dateValue = DateTime.Now.AddDays(-1);
 
             lst = new ListItem();
-            lst.Value = dateValue.Year.ToString() + "-" + (dateValue.Month.ToString().Length == 1 ? "0" + dateValue.Month.ToString() : dateValue.Month.ToString()) + "-" + dateValue.Day.ToString();
+            lst.Value = dateValue.Year.ToString() + "-" + (dateValue.Month.ToString().Length == 1 ? "0" + dateValue.Month.ToString() : dateValue.Month.ToString()) + "-" + (dateValue.Day.ToString().Length == 1 ? "0" + dateValue.Day.ToString() : dateValue.Day.ToString());
             lst.Text = "Yesterday, " + dateValue.Day.ToString() + " " + dateValue.ToString("MMM") + " " + dateValue.Year.ToString();
             ddlDate.Items.Add(lst);
 
             dateValue = DateTime.Now;
 
             lst = new ListItem();
-            lst.Value = dateValue.Year.ToString() + "-" + (dateValue.Month.ToString().Length == 1 ? "0" + dateValue.Month.ToString() : dateValue.Month.ToString()) + "-" + dateValue.Day.ToString();
+            lst.Value = dateValue.Year.ToString() + "-" + (dateValue.Month.ToString().Length == 1 ? "0" + dateValue.Month.ToString() : dateValue.Month.ToString()) + "-" + (dateValue.Day.ToString().Length == 1 ? "0" + dateValue.Day.ToString() : dateValue.Day.ToString());
             lst.Text = "Today, " + dateValue.Day.ToString() + " " + dateValue.ToString("MMM") + " " + dateValue.Year.ToString();
             ddlDate.Items.Add(lst);
             ddlDate.SelectedValue = lst.Value;
@@ -39,7 +39,7 @@ namespace FlightStatusCheck
             dateValue = DateTime.Now.AddDays(1);
 
             lst = new ListItem();
-            lst.Value = dateValue.Year.ToString() + "-" + (dateValue.Month.ToString().Length == 1 ? "0" + dateValue.Month.ToString() : dateValue.Month.ToString()) + "-" + dateValue.Day.ToString();
+            lst.Value = dateValue.Year.ToString() + "-" + (dateValue.Month.ToString().Length == 1 ? "0" + dateValue.Month.ToString() : dateValue.Month.ToString()) + "-" + (dateValue.Day.ToString().Length == 1 ? "0" + dateValue.Day.ToString() : dateValue.Day.ToString());
             lst.Text = "Tomorrow, " + dateValue.Day.ToString() + " " + dateValue.ToString("MMM") + " " + dateValue.Year.ToString();
             ddlDate.Items.Add(lst);
 
