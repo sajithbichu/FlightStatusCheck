@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<link href="jquery-ui.css" rel="stylesheet" type="text/css" />
+<link href="Scripts/StyleSheetOne.css" rel="stylesheet" type="text/css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,6 +16,7 @@
 
             LoaderHide();
 
+            var temp = true;
             $("#txtAirportFrom").autocomplete({
                 source: function (request, response) {
                     $.ajax({
@@ -32,6 +33,9 @@
                             alert(textStatus);
                         },
                         select: function (event, ui) {
+                            event.preventDefault();
+                            $(this).val(ui.item.label).attr('title', ui.item.label);
+                            temp = true;
                             return false;
                         }
                     });
@@ -41,12 +45,14 @@
                 minLength: 0
             }).focus(function () {
 
-                $("#txtAirportTo").autocomplete('close');
-                $("#txtAirportTo").blur();
-                $(this).data("autocomplete").search($(this).val());
+                if (temp) {
+                    $(this).autocomplete("search");
+                    temp = false;
+                }
 
             });
 
+            var temp = true;
             $("#txtAirportTo").autocomplete({
                 source: function (request, response) {
                     $.ajax({
@@ -55,7 +61,7 @@
                         dataType: "json",
                         type: "POST",
                         contentType: "application/json; charset=utf-8",
-                        open: function () { $(this).data("ui-autocomplete").menu.bindings = $(); $("#txtAirportFrom").autocomplete('close'); },
+                        open: function () { $(this).data("ui-autocomplete").menu.bindings = $(); $("#txtAirportTo").autocomplete('close'); },
                         success: function (data) {
                             response(data.d);
                         },
@@ -63,24 +69,39 @@
                             alert(textStatus);
                         },
                         select: function (event, ui) {
+                            event.preventDefault();
+                            $(this).val(ui.item.label).attr('title', ui.item.label);
+                            temp = true;
                             return false;
                         }
                     });
                 },
+                select: function (event, ui) {
+                },
                 minLength: 0
             }).focus(function () {
 
-                $("#txtAirportFrom").autocomplete('close');
-                $("#txtAirportFrom").blur();
-                $(this).data("autocomplete").search($(this).val());
+                if (temp) {
+                    $(this).autocomplete("search");
+                    temp = false;
+                }
 
             });
 
+            $("#lnkSwap").click(function (event) {
+
+                var tempFrom = $.trim($("#txtAirportFrom").val());
+                var tempTo = $.trim($("#txtAirportTo").val());
+
+                $("#txtAirportFrom").val(tempTo);
+                $("#txtAirportTo").val(tempFrom);
+            });
 
             $("#lnkSearch").click(function (event) {
 
                 $("#divError").html("");
                 $("#divSearchResultHeader").hide();
+                $("#divSearchResultEmpty").hide();
                 $("#divSearchResult").hide();
                 $("#txtAirportFrom").autocomplete('close');
                 $("#txtAirportTo").autocomplete('close');
@@ -145,43 +166,48 @@
                                     arrivaltime = searchResultArrayDetails[8];
 
                                     var flightstatus_Color;
+                                    var status_icon = "";
                                     if (flightstatus == "ARVD") {
-                                        departure_time_info = "Departed: ";
-                                        arrival_time_info = "Arrived: ";
+                                        departure_time_info = "Departed: <br/>";
+                                        arrival_time_info = "Arrived: <br/>";
                                         flightstatus_Color = "<a class='flightStatusReached'>Flight Arrived</a>";
+                                        status_icon = "<img src='Images/flight_landed.png' style='width:30%; height:30%' />";
                                     }
                                     else if (flightstatus == "PDEP") {
-                                        departure_time_info = "Scheduled Departure: ";
-                                        arrival_time_info = "Estimated Arrival: ";
+                                        departure_time_info = "Scheduled Departure: <br/>";
+                                        arrival_time_info = "Estimated Arrival: <br/>";
                                         flightstatus_Color = "<a class='flightStatusNYR'>Not yet departed</a>";
+                                        //status_icon = "<img src='Images/flight_not_departed.png' style='width:10%; height:10%' />";
                                     }
                                     else if (flightstatus == "ENRT") {
-                                        departure_time_info = "Departed: ";
-                                        arrival_time_info = "Estimated Arrival: ";
-                                        flightstatus_Color = "<a class='flightStatusReached'>In Flight</a>";
+                                        departure_time_info = "Departed: <br/>";
+                                        arrival_time_info = "Estimated Arrival: <br/>";
+                                        flightstatus_Color = "<a class='flightStatusNA'>In Flight</a>";
+                                        status_icon = "<img src='Images/flight_departed.png' style='width:30%; height:30%' />";
                                     }
                                     else {
-                                        departure_time_info = "Scheduled Departure: ";
-                                        arrival_time_info = "Estimated Arrival: ";
+                                        departure_time_info = "Scheduled Departure: <br/>";
+                                        arrival_time_info = "Estimated Arrival: <br/>";
                                         flightstatus_Color = "<a class='flightStatusNA'>Not yet available</a>";
+                                        //status_icon = "<img src='Images/flight_not_departed.png' style='width:10%; height:10%' />";
                                     }
 
+                                    status_icon = "<img src='Images/flight_landed.png' style='width:30%; height:30%' />";
+                                    //status_icon = "";
+
                                     flightDetails_HTML = flightDetails_HTML + tblRowOpen;
-                                    flightDetails_HTML = flightDetails_HTML + tblCellOpen + "<strong style='font-size:20px'>" + flightname + "-" + flightno + "  (" + flightfromCode + ")</strong>" + tblCellClose;
-                                    flightDetails_HTML = flightDetails_HTML + tblCellOpen + "<strong style='font-size:20px'>" + "(" + flighttoCode + ")</strong > " + tblCellClose;
-                                    flightDetails_HTML = flightDetails_HTML + tblCellOpen + "" + tblCellClose;
+                                    flightDetails_HTML = flightDetails_HTML + tblCellOpen + "<strong style='font-size:20px'>" + flightname + " " + flightno + "</strong><br/>" + "Leaving from:<br/><strong style='font-size:20px'>" + "(" + flightfromCode + ") - " + flightfromterminal + "</strong>" + tblCellClose;
+                                    //flightDetails_HTML = flightDetails_HTML + tblCellOpen + status_icon + tblCellClose;
+                                    flightDetails_HTML = flightDetails_HTML + tblCellOpen + "Going to:<br/><strong style='font-size:20px'>" + "(" + flighttoCode + ") - " + flightoterminal + tblCellClose;
+                                    flightDetails_HTML = flightDetails_HTML + tblCellOpen + "&nbsp;" + tblCellClose;
                                     flightDetails_HTML = flightDetails_HTML + tblRowClose;
 
+                                    //flightDetails_HTML = flightDetails_HTML + "<table>";
                                     flightDetails_HTML = flightDetails_HTML + tblRowOpen;
                                     flightDetails_HTML = flightDetails_HTML + tblCellOpen + departure_time_info + "<strong style='font-size:30px'>" + departuretime + "</strong>" + tblCellClose;
+                                    //flightDetails_HTML = flightDetails_HTML + tblCellOpen + "" + tblCellClose;
                                     flightDetails_HTML = flightDetails_HTML + tblCellOpen + arrival_time_info + "<strong style='font-size:30px'>" + arrivaltime + "</strong>" + tblCellClose;
                                     flightDetails_HTML = flightDetails_HTML + tblCellOpen + flightstatus_Color + tblCellClose;
-                                    flightDetails_HTML = flightDetails_HTML + tblRowClose;
-
-                                    flightDetails_HTML = flightDetails_HTML + tblRowOpen;
-                                    flightDetails_HTML = flightDetails_HTML + tblCellOpen + flightfromterminal + tblCellClose;
-                                    flightDetails_HTML = flightDetails_HTML + tblCellOpen + flightoterminal + tblCellClose;
-                                    flightDetails_HTML = flightDetails_HTML + tblCellOpen + "" + tblCellClose;
                                     flightDetails_HTML = flightDetails_HTML + tblRowClose + "</table>";
 
                                     flightStatus_HTML = flightStatus_HTML + "<div class='centerResult'>" + flightDetails_HTML + " </div><br />";
@@ -192,12 +218,14 @@
                                 $("#divSearchResult").html(flightStatus_HTML);
                                 $("#lblNote").text("Flight status from " + $("#txtAirportFrom").val() + " to " + $("#txtAirportTo").val() + " on " + $("#hDate").val());
                                 LoaderHide();
+                                $("#divSearchResultEmpty").hide();
                             }
                             else {
                                 $("#lblNote").text("No flights available for the selected details.");
                                 $("#divLoader").hide();
                                 $("#divSearchResultHeader").show();
                                 $("#divSearchResult").hide();
+                                $("#divSearchResultEmpty").show();
                             }
                         },
                         error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -217,11 +245,13 @@
             $("#divLoader").hide();
             $("#divSearchResultHeader").show();
             $("#divSearchResult").show();
+            $("#divSearchResultEmpty").show();
         }
         function LoaderShow() {
             $("#divLoader").show();
             $("#divSearchResultHeader").hide();
             $("#divSearchResult").hide();
+            $("#divSearchResultEmpty").hide();
         }
 
 
@@ -232,14 +262,16 @@
 <body>
     <form id="form1" style="" runat="server">
         <img src="Images/EmiratesLogo.png" class="img" alt="logo" />
-        <div style="text-align: center;">
-            <h1>Flight Status</h1>
+        <div style="text-align: center; background-color: #686868; color: white; height:70px;">
+            <h1>Flight Status Portal</h1>
         </div>
         <br />
         <div class="center">
             <input type="search" class="input input2" value="" id="txtAirportFrom" placeholder="Leaving From" />
+            <a href="#" id="lnkSwap">
+                <img src="Images/swap.png" style="width: 2%; height: 3%" /></a>
             <input type="search" class="input input2" value="" id="txtAirportTo" placeholder="Going To" />
-            <asp:DropDownList ID="ddlDate" class="input input2" runat="server"></asp:DropDownList>
+            <asp:DropDownList ID="ddlDate" class="inputDate input2" runat="server"></asp:DropDownList>
             &nbsp; <a href="#" id="lnkSearch" class="button button2">View Details</a>
         </div>
         <br />
@@ -248,12 +280,14 @@
         <div class="loader" id="divLoader"></div>
         <div id="divSearchResultHeader" style="text-align: center;">
             <h3>
-                <label id="lblNote"></label>
+                <label id="lblNote">Specify the aiports, date and view details.</label>
             </h3>
         </div>
         <br />
-
         <div id="divSearchResult">
+        </div>
+        <div id="divSearchResultEmpty"  style="text-align: center;">
+           <img src="Images/Emirates-Logo-New.png" style="width: 30%; height: 30%; opacity:0.5"  />
         </div>
         <asp:HiddenField ID="hFromCode" Value="" runat="server" />
         <asp:HiddenField ID="hToCode" Value="" runat="server" />
@@ -261,235 +295,6 @@
         <asp:HiddenField ID="hSearchResult" Value="" runat="server" />
     </form>
 
-
-    <style type="text/css">
-        .center {
-            padding: 70px 0;
-            border: 1px solid gray;
-            text-align: center;
-            padding: 10px;
-            border-radius: 4px;
-            box-shadow: 2px 2px 3px 5px lightgray;
-        }
-
-        .centerResult {
-            padding: 70px 0;
-            border: 1px solid gray;
-            text-align: center;
-            padding: 10px;
-            border-radius: 4px;
-            box-shadow: 2px 2px 3px 5px lightgray;
-            width: 80%;
-            position: relative;
-            right: -10%;
-        }
-
-        .button {
-            background-color: red;
-            border: none;
-            color: white;
-            padding: 10px 25px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-            -webkit-transition-duration: 0.4s;
-            transition-duration: 0.4s;
-            border-radius: 8px;
-        }
-
-
-        .flightStatusReached {
-            background-color: green;
-            border: none;
-            color: white;
-            padding: 10px 25px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: none;
-            -webkit-transition-duration: 0.4s;
-            transition-duration: 0.4s;
-            position: absolute;
-            right: -5%;
-            width: 160px;
-            top: 7%;
-        }
-
-        .flightStatusNYR {
-            background-color: blue;
-            border: none;
-            color: white;
-            padding: 10px 25px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: none;
-            -webkit-transition-duration: 0.4s;
-            transition-duration: 0.4s;
-            position: absolute;
-            right: -5%;
-            width: 160px;
-            top: 7%;
-        }
-
-        .flightStatusNA {
-            background-color: #FFBF00;
-            border: none;
-            color: white;
-            padding: 10px 25px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: none;
-            -webkit-transition-duration: 0.4s;
-            transition-duration: 0.4s;
-            position: absolute;
-            right: -5%;
-            width: 160px;
-            top: 7%;
-        }
-
-        .button2:hover {
-            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
-        }
-
-        .input {
-            border: 1px solid gray;
-            border-radius: 3px;
-            padding: 0px 5px;
-            height: 50px;
-            width: 300px;
-            position: relative;
-        }
-
-        .input2:hover {
-            box-shadow: 0 6px 10px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
-        }
-
-        .ui-menu {
-            position: relative;
-            list-style: none;
-            background-color: white;
-            border-radius: 10px;
-            /*            z-index:30 !important;*/
-            width: 400px;
-            line-height: 250%;
-            font-size: 12px;
-            padding: 15px 0;
-            border: solid 1px grey;
-            box-shadow: 0 6px 10px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
-            cursor: pointer;
-        }
-
-            .ui-menu .ui-menu-item {
-                margin: none;
-                padding-left: 15px;
-                padding-right: 10px;
-            }
-
-                .ui-menu .ui-menu-item:hover {
-                    background-color: silver;
-                    font-size: 14px;
-                    font-weight: bold;
-                }
-
-        #ui-id-1 {
-            display: block !important;
-        }
-
-
-
-        * {
-            box-sizing: border-box;
-        }
-
-        .row {
-            margin-left: -5px;
-            margin-right: -5px;
-        }
-
-        .column {
-            float: left;
-            width: 50%;
-            padding: 5px;
-        }
-
-        /* Clearfix (clear floats) */
-        .row::after {
-            content: "";
-            clear: both;
-            display: table;
-        }
-
-        table {
-            border-collapse: collapse;
-            border-spacing: 0;
-            width: 100%;
-            border: 1px solid #ddd;
-        }
-
-        th, td {
-            text-align: left;
-            padding: 16px;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-
-        .loader {
-            position: absolute;
-            left: 45%;
-            top: 50%;
-            border: 16px solid red;
-            border-radius: 50%;
-            border-top: 16px solid silver;
-            width: 120px;
-            height: 120px;
-            -webkit-animation: spin 2s linear infinite; /* Safari */
-            animation: spin 2s linear infinite;
-        }
-
-        /* Safari */
-        @-webkit-keyframes spin {
-            0% {
-                -webkit-transform: rotate(0deg);
-            }
-
-            100% {
-                -webkit-transform: rotate(360deg);
-            }
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        .img {
-            float: left;
-            width: 100px;
-            height: 100px;
-            background: #555;
-            position: relative;
-            top: 3px;
-            right: -20px;
-        }
-    </style>
 
 </body>
 

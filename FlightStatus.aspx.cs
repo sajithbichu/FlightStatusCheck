@@ -43,6 +43,16 @@ namespace FlightStatusCheck
             lst.Text = "Tomorrow, " + dateValue.Day.ToString() + " " + dateValue.ToString("MMM") + " " + dateValue.Year.ToString();
             ddlDate.Items.Add(lst);
 
+            DownloadAirportList();
+
+        }
+        public void DownloadAirportList()
+        {
+            var url = System.Configuration.ConfigurationManager.AppSettings["AirportListWebLink"];
+
+            var webclient = new WebClient();
+            var json = webclient.DownloadString(url);
+            System.IO.File.WriteAllText(@"" + System.Configuration.ConfigurationManager.AppSettings["AirportListJsonPath"], json);
         }
     }
 }

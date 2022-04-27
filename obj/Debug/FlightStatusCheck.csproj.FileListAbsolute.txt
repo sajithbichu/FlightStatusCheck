@@ -72,6 +72,8 @@ C:\Users\Sajith\source\repos\FlightStatusCheck\obj\Debug\FlightStatusCheck.cspro
 C:\Users\Sajith\source\repos\FlightStatusCheck\obj\Debug\FlightStatusCheck.csproj.CopyComplete
 C:\Users\Sajith\source\repos\FlightStatusCheck\obj\Debug\FlightStatusCheck.dll
 C:\Users\Sajith\source\repos\FlightStatusCheck\obj\Debug\FlightStatusCheck.pdb
+C:\Users\Sajith\Documents\GitHub\FlightStatusCheck\obj\Debug\FlightStatusCheck.csproj.AssemblyReference.cache
+C:\Users\Sajith\Documents\GitHub\FlightStatusCheck\obj\Debug\FlightStatusCheck.csproj.CoreCompileInputs.cache
 C:\Users\Sajith\Documents\GitHub\FlightStatusCheck\bin\FlightStatusCheck.dll.config
 C:\Users\Sajith\Documents\GitHub\FlightStatusCheck\bin\FlightStatusCheck.dll
 C:\Users\Sajith\Documents\GitHub\FlightStatusCheck\bin\FlightStatusCheck.pdb
@@ -141,8 +143,6 @@ C:\Users\Sajith\Documents\GitHub\FlightStatusCheck\bin\Newtonsoft.Json.xml
 C:\Users\Sajith\Documents\GitHub\FlightStatusCheck\bin\Antlr3.Runtime.pdb
 C:\Users\Sajith\Documents\GitHub\FlightStatusCheck\bin\Microsoft.AspNet.FriendlyUrls.xml
 C:\Users\Sajith\Documents\GitHub\FlightStatusCheck\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\Sajith\Documents\GitHub\FlightStatusCheck\obj\Debug\FlightStatusCheck.csproj.AssemblyReference.cache
-C:\Users\Sajith\Documents\GitHub\FlightStatusCheck\obj\Debug\FlightStatusCheck.csproj.CoreCompileInputs.cache
 C:\Users\Sajith\Documents\GitHub\FlightStatusCheck\obj\Debug\FlightStatusCheck.csproj.CopyComplete
 C:\Users\Sajith\Documents\GitHub\FlightStatusCheck\obj\Debug\FlightStatusCheck.dll
 C:\Users\Sajith\Documents\GitHub\FlightStatusCheck\obj\Debug\FlightStatusCheck.pdb

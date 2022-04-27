@@ -1,0 +1,252 @@
+﻿.center {
+    padding: 70px 0;
+    border: 2px #FFD700;
+    text-align: center;
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 2px 2px 3px 5px #D4AF37;
+    background-color: white;
+}
+
+.centerResult {
+    padding: 70px 0;
+    border: 1px solid gray;
+    text-align: center;
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 2px 2px 3px 5px #D4AF37;
+    width: 80%;
+    position: relative;
+    right: -10%;
+}
+
+.button {
+    background-color: red;
+    border: none;
+    color: white;
+    padding: 10px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    border-radius: 8px;
+}
+
+
+.flightStatusReached {
+    background-color: green;
+    border: none;
+    color: white;
+    padding: 10px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: none;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    position: absolute;
+    right: -5%;
+    width: 160px;
+    top: 10%;
+}
+
+.flightStatusNYR {
+    background-color: blue;
+    border: none;
+    color: white;
+    padding: 10px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: none;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    position: absolute;
+    right: -5%;
+    width: 160px;
+    top: 10%;
+}
+
+.flightStatusNA {
+    background-color: #FFBF00;
+    border: none;
+    color: white;
+    padding: 10px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: none;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    position: absolute;
+    right: -5%;
+    width: 160px;
+    top: 10%;
+}
+
+.button2:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.input {
+    border: 1px solid gray;
+    border-radius: 3px;
+    padding: 0px 5px;
+    height: 50px;
+    width: 400px;
+    position: relative;
+}
+
+.inputDate {
+    border: 1px solid gray;
+    border-radius: 3px;
+    padding: 0px 5px;
+    height: 50px;
+    width: 190px;
+    position: relative;
+}
+
+.input2:hover {
+    box-shadow: 0 6px 10px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.ui-menu {
+    position: relative;
+    list-style: none;
+    background-color: white;
+    border-radius: 10px;
+    /*            z-index:30 !important;*/
+    width: 400px;
+    line-height: 250%;
+    font-size: 12px;
+    padding: 15px 0;
+    border: solid 1px grey;
+    box-shadow: 0 6px 10px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+    cursor: pointer;
+}
+
+    .ui-menu .ui-menu-item {
+        margin: none;
+        padding-left: 15px;
+        padding-right: 10px;
+    }
+
+        .ui-menu .ui-menu-item:hover {
+            background-color: silver;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+#ui-id-1 {
+    display: block !important;
+}
+
+
+
+* {
+    box-sizing: border-box;
+}
+
+.row {
+    margin-left: -5px;
+    margin-right: -5px;
+}
+
+.column {
+    float: left;
+    width: 50%;
+    padding: 5px;
+}
+
+/* Clearfix (clear floats) */
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #ddd;
+}
+
+th, td {
+    text-align: left;
+    padding: 16px;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.loader {
+    position: absolute;
+    left: 45%;
+    top: 50%;
+    border: 16px solid red;
+    border-radius: 50%;
+    border-top: 16px solid silver;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.img {
+    float: left;
+    width: 100px;
+    height: 100px;
+    background: #555;
+    position: relative;
+    top: 8px;
+    right: -20px;
+}
+
+.swap {
+    background: url(Images/swap.png) no-repeat 6px center;
+    width: 30px;
+    height: 30px;
+    display: block;
+}
+
+body {
+    background-image: url('images/emirates-airlines.jpg');
+/* background-color: yellow;*/
+    /*            background-repeat: no-repeat;
+            background-attachment: fixed;*/
+}
+
+
